@@ -1,0 +1,117 @@
+Package minijava;
+
+Helpers
+	digit = ['0'..'9'];
+	letters = ['a'..'z'];
+	upletters = ['A'..'Z'];
+
+Tokens
+	lchave = '{';
+	rchave = '}';
+	lparen = '(';
+	rparen = ')';
+	lcolchete = '[';
+	rcolchete = ']';
+	semicolon = ';';
+	virgula = ',';
+	igual = '=';
+	if = 'if';
+	else = 'else';
+	while = 'while';
+	class = 'class';
+	public = 'public';
+	static = 'static';
+	void = 'void';
+	main = 'main';
+	extends = 'extends';
+	intf = 'int []';
+	int = 'int';
+	boolean = 'boolean';
+	return = 'return';
+	print = 'System.out.println';
+	true = 'true';
+	false = 'false';
+	tipo = 'type';
+  	booleano = 'true'|'false';
+	op = '&&'|'+'|'-'|'*'|'<';
+	new = 'new';
+	this = 'this';
+	vazio = '?';
+	integer_literal = 'integer_literal';
+	length = 'length';
+	ponto = '.';
+	string = 'string';
+	exclamacao = '!';
+	id = (letters|upletters) (letters|digit|'_'|upletters)*;
+	tok_integerlit = digit+;
+	real = ((digit)+ '.' (digit)*) |
+	((digit)* '.' (digit)+);
+	whitespace = (' ' | 10 | 13)+;
+	//comments = ('/''*' (upletters|letters|digit|'_')* '*''/') | ('/''/' (upletters|letters|digit|'_')* '\n');
+  //comments = ('/''/' ([0...0xffff]-[10|13])* (10 13)) /*DUVIDAAAA*/
+	comments = '/''/'[[0 .. 0xffff] - [10 + 13]]* (10|13|10 13);
+
+Ignored Tokens
+	whitespace,
+	comments;
+
+/*
+Productions
+	program = {program} mainclass classdecl*;
+
+	mainclass =
+		{mainclass}class id lchave public static void main lparen string lcolchete rcolchete id rparen lchave statement rchave rchave;
+
+	classdecl =
+		{vardecl} class id lchave vardecl* methoddecl* rchave |
+		class id extends id lchave vardecl* methoddecl* rchave;
+
+	vardecl =
+		{vardecl} type id;
+
+	methoddecl =
+		public type id lparen formallist rparen lchave vardecl* statement* return exp semicoln rchave;
+
+	formallist =
+		type id formalrest*|
+		vazio;
+
+	formalrest =
+		virgula type id;
+
+	type =
+		{intf } intf |
+		{boolean} boolean |
+		{int} int |
+		{id} id;
+
+	statement =
+		{statement} lchave statement* rchave |
+		{if} if lparen exp rparen statement else statement |
+		{while} while lparen exp rparen statement |
+		{print} print lparen exp rparen semicolon |
+		{igual} id igual exp semicolon |
+		{expigual} id lcolchete exp rcolchete igual exp semicolon ;
+
+	exp =
+		{op} exp op exp | 
+		{exp} exp lcolchete exp rcolchete |
+		{length} exp ponto length |
+		{explist} exp ponto id lparen explist rparen |
+		{intliteral}integer_literal |
+		{true}true |
+		{false}false |
+		{id}id |
+		{this}this |
+		{newint}new int lcolchete exp rcolchete |
+		{newid}new id lparen rparen |
+		{exclamacao}exclamacao exp |
+		{entrepar}lparen exp rparen;
+
+	explist =
+		{exprest}exp exprest*|
+		vazio;
+
+	exprest =
+		virgula exp;
+*/

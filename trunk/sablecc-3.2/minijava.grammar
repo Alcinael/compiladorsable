@@ -1,0 +1,108 @@
+Package minijava;
+
+Helpers
+	digit = ['0'..'9'];
+	letters = ['a'..'z'];
+	upletters = ['A'..'Z'];
+Tokens
+	lchave = '{';
+	rchave = '}';
+	lparen = '(';
+	rparen = ')';
+	lcolchete = '[';
+	rcolchete = ']';
+	semicolon = ';';
+	virgula = ',';
+	igual = '=';
+	if = 'if';
+	else = 'else';
+	while = 'while';
+	class = 'class';
+	public = 'public';
+	static = 'static';
+	void = 'void';
+	main = 'main';
+	extends = 'extends';
+	intf = 'int []';
+	int = 'int';
+	boolean = 'boolean';
+	return = 'return';
+	print = 'System.out.println';
+	true = 'true';
+	false = 'false';
+  booleano = 'true'|'false';
+	op = '&&'|'+'|'-'|'*'|'<';
+	new = 'new';
+	this = 'this';
+	vazio = '?';
+	id = (letters|upletters) (letters|digit|'_'|upletters)*;
+	tok_integerlit = digit+;
+	real = ((digit)+ '.' (digit)*) |
+	((digit)* '.' (digit)+);
+	whitespace = (' ' | '\t' | '\n')+;
+	comments = ('/''*' (upletters|letters|digit|'_')* '*''/') | ('/''/' (upletters|letters|digit|'_')* '\n');
+//	coments = ('/''/' ([0...0xffff]-[10|13])* (10 13)) /*DUVIDAAAA*/
+Ignored Tokens
+	whitespace,
+	comments;
+
+/*
+Productions
+	Program = {program} MainClass ClassDecl*;
+
+	MainClass = 
+		{mainclass} class id lchave public static void main lparen String lcolchete rcolchete id rparen lchave Statement rchave rchave;
+
+	ClassDecl =
+		{vardecl} class id lchave VarDecl* MethodDecl* rchave |
+		class id extends id lchave VarDecl* MethodDecl* rchave;
+
+	VarDecl =
+		{vardecl} Type id;
+
+	MethodDecl =
+		public Type id lparen FormalList rparen lchave VarDecl* Statement* return Exp semicoln rchave;
+
+	FormalList =
+		lparen Type id FormalRest* rparen|
+		vazio;
+
+	FormalRest =
+		virgula Type id;
+
+	Type =
+		{intf } intf |
+		{boolean} boolean |
+		{int} int |
+		{id} id;
+
+	Statement =
+		{statement} lchave Statement* rchave |
+		{if} if lparen Exp rparen Statement else Statement |
+		{while} while lparen Exp rparen Statement |
+		{print} print lparen Exp rparen semicolon |
+		{igual} id igual Exp semicolon |
+		{expigual} id lcolchete Exp rcolchete igual Exp semicolon ;
+
+	Exp =
+		{op} Exp op Exp | 
+		{exp} Exp lcolchete Exp rcolchete |
+		{length} Exp . length |
+		{exṕlist} Exp . id lparen ExpList rparen |
+		{intliteral}INTEGER LITERAL |
+		true |
+		false |
+		id |
+		this |
+		new int lcolchete Exp rcolchete |
+		new id lparen rparen |
+		! Exp |
+		lparen Exp rparen;
+
+	ExpList =
+		Exp ExpRest*|
+		vazio;
+
+	ExpRest =
+		virgula Exp;
+*/
