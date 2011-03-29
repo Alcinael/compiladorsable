@@ -31,10 +31,6 @@ public interface Analysis extends Switch
     void caseAPrintStatement(APrintStatement node);
     void caseAIgualStatement(AIgualStatement node);
     void caseAExpigualStatement(AExpigualStatement node);
-    void caseAOpExp(AOpExp node);
-    void caseAExpExp(AExpExp node);
-    void caseALengthExp(ALengthExp node);
-    void caseAExplistExp(AExplistExp node);
     void caseAIntliteralExp(AIntliteralExp node);
     void caseATrueExp(ATrueExp node);
     void caseAFalseExp(AFalseExp node);
@@ -44,6 +40,14 @@ public interface Analysis extends Switch
     void caseANewidExp(ANewidExp node);
     void caseAExclamacaoExp(AExclamacaoExp node);
     void caseAEntreparExp(AEntreparExp node);
+    void caseAPreceUlexp(APreceUlexp node);
+    void caseAP1Realexp(AP1Realexp node);
+    void caseAP2Addexp(AP2Addexp node);
+    void caseAAddexp(AAddexp node);
+    void caseAP3Mulexp(AP3Mulexp node);
+    void caseAP4Notexp(AP4Notexp node);
+    void caseAP5Notexp(AP5Notexp node);
+    void caseAP6Notexp(AP6Notexp node);
     void caseAExprestExplist(AExprestExplist node);
     void caseAExplist(AExplist node);
     void caseAExprest(AExprest node);
@@ -75,7 +79,11 @@ public interface Analysis extends Switch
     void caseTTkFalse(TTkFalse node);
     void caseTTkTipo(TTkTipo node);
     void caseTTkBooleano(TTkBooleano node);
-    void caseTTkOp(TTkOp node);
+    void caseTTkPlus(TTkPlus node);
+    void caseTTkMinus(TTkMinus node);
+    void caseTTkTime(TTkTime node);
+    void caseTTkAnd(TTkAnd node);
+    void caseTTkMenor(TTkMenor node);
     void caseTTkNew(TTkNew node);
     void caseTTkThis(TTkThis node);
     void caseTTkVazio(TTkVazio node);

@@ -164,26 +164,6 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAOpExp(AOpExp node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAExpExp(AExpExp node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseALengthExp(ALengthExp node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAExplistExp(AExplistExp node)
-    {
-        defaultCase(node);
-    }
-
     public void caseAIntliteralExp(AIntliteralExp node)
     {
         defaultCase(node);
@@ -225,6 +205,46 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseAEntreparExp(AEntreparExp node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAPreceUlexp(APreceUlexp node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAP1Realexp(AP1Realexp node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAP2Addexp(AP2Addexp node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAAddexp(AAddexp node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAP3Mulexp(AP3Mulexp node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAP4Notexp(AP4Notexp node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAP5Notexp(AP5Notexp node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAP6Notexp(AP6Notexp node)
     {
         defaultCase(node);
     }
@@ -379,7 +399,27 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseTTkOp(TTkOp node)
+    public void caseTTkPlus(TTkPlus node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTTkMinus(TTkMinus node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTTkTime(TTkTime node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTTkAnd(TTkAnd node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTTkMenor(TTkMenor node)
     {
         defaultCase(node);
     }
