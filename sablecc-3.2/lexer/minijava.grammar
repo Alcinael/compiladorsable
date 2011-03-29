@@ -6,112 +6,108 @@ Helpers
 	upletters = ['A'..'Z'];
 
 Tokens
-	lchave = '{';
-	rchave = '}';
-	lparen = '(';
-	rparen = ')';
-	lcolchete = '[';
-	rcolchete = ']';
-	semicolon = ';';
-	virgula = ',';
-	igual = '=';
-	if = 'if';
-	else = 'else';
-	while = 'while';
-	class = 'class';
-	public = 'public';
-	static = 'static';
-	void = 'void';
-	main = 'main';
-	extends = 'extends';
-	intf = 'int []';
-	int = 'int';
-	boolean = 'boolean';
-	return = 'return';
-	print = 'System.out.println';
-	true = 'true';
-	false = 'false';
-	tipo = 'type';
-  	booleano = 'true'|'false';
-	op = '&&'|'+'|'-'|'*'|'<';
-	new = 'new';
-	this = 'this';
-	vazio = '?';
-	integer_literal = 'integer_literal';
-	length = 'length';
-	ponto = '.';
-	string = 'string';
-	exclamacao = '!';
-	id = (letters|upletters) (letters|digit|'_'|upletters)*;
-	tok_integerlit = digit+;
-	real = ((digit)+ '.' (digit)*) |
-	((digit)* '.' (digit)+);
-	whitespace = (' ' | 9 | 10 | 13)+;
-	//comments = ('/''*' (upletters|letters|digit|'_')* '*''/') | ('/''/' (upletters|letters|digit|'_')* '\n');
-  //comments = ('/''/' ([0...0xffff]-[10|13])* (10 13)) /*DUVIDAAAA*/
-	comments = ('/''/'[[0 .. 0xffff] - [10 + 13]]* (10|13|10 13)) | ('/''*'[0 .. 0xffff]* '*''/');
+	tk_lchave = '{';
+	tk_rchave = '}';
+	tk_lparen = '(';
+	tk_rparen = ')';
+	tk_lcolchete = '[';
+	tk_rcolchete = ']';
+	tk_semicolon = ';';
+	tk_virgula = ',';
+	tk_igual = '=';
+	tk_if = 'if';
+	tk_else = 'else';
+	tk_while = 'while';
+	tk_class = 'class';
+	tk_public = 'public';
+	tk_static = 'static';
+	tk_void = 'void';
+	tk_main = 'main';
+	tk_extends = 'extends';
+	tk_intf = 'int []';
+	tk_int = 'int';
+	tk_boolean = 'boolean';
+	tk_return = 'return';
+	tk_print = 'System.out.println';
+	tk_true = 'true';
+	tk_false = 'false';
+	tk_tipo = 'type';
+  tk_booleano = 'true'|'false';
+	tk_op = '&&'|'+'|'-'|'*'|'<';
+	tk_new = 'new';
+	tk_this = 'this';
+	tk_vazio = '?';
+	tk_integer_literal = 'integer_literal';
+	tk_length = 'length';
+	tk_ponto = '.';
+	tk_string = 'string';
+	tk_exclamacao = '!';
+	tk_id = (letters|upletters) (letters|digit|'_'|upletters)*;
+	tk_tok_integerlit = digit+;
+	tk_real = ((digit)+ '.' (digit)*) | ((digit)* '.' (digit)+);
+	tk_whitespace = (' ' | 9 | 10 | 13)+;
+  //comments = ('/''/' ([0...0xffff]-[10|13])* (10 13))
+	tk_comments = ('/''/'[[0 .. 0xffff] - [10 + 13]]* (10|13|10 13)) | ('/''*'[0 .. 0xffff]* '*''/');
 
 Ignored Tokens
-	whitespace,
-	comments;
+	tk_whitespace,
+	tk_comments;
 
-/*
+
 Productions
 	program = {program} mainclass classdecl*;
 
-	mainclass =
-		{mainclass}class id lchave public static void main lparen string lcolchete rcolchete id rparen lchave statement rchave rchave;
+	mainclass  = {mainclass} tk_class [left]:tk_id [left2]:tk_lchave tk_public tk_static tk_void tk_main tk_lparen tk_string tk_lcolchete tk_rcolchete [right]:tk_id tk_rparen [right2]:tk_lchave statement [left3]:tk_rchave [right3]:tk_rchave;
 
 	classdecl =
-		{vardecl} class id lchave vardecl* methoddecl* rchave |
-		class id extends id lchave vardecl* methoddecl* rchave;
+		{classdecl} tk_class tk_id tk_lchave vardecl* methoddecl* tk_rchave |
+		tk_class [left]:tk_id tk_extends [right]:tk_id tk_lchave vardecl* methoddecl* tk_rchave;
 
 	vardecl =
-		{vardecl} type id;
+		{vardecl} type tk_id;
 
 	methoddecl =
-		public type id lparen formallist rparen lchave vardecl* statement* return exp semicoln rchave;
+		tk_public type tk_id tk_lparen formallist tk_rparen tk_lchave vardecl* statement* tk_return exp tk_semicolon tk_rchave;
 
-	formallist =
-		type id formalrest*|
-		vazio;
+	formallist ={formallist} type tk_id formalrest*|
+		tk_vazio;
 
 	formalrest =
-		virgula type id;
+		tk_virgula type tk_id;
 
 	type =
-		{intf } intf |
-		{boolean} boolean |
-		{int} int |
-		{id} id;
+		{intf} tk_intf |
+		{boolean} tk_boolean |
+		{int} tk_int |
+		{id} tk_id;
 
 	statement =
-		{statement} lchave statement* rchave |
-		{if} if lparen exp rparen statement else statement |
-		{while} while lparen exp rparen statement |
-		{print} print lparen exp rparen semicolon |
-		{igual} id igual exp semicolon |
-		{expigual} id lcolchete exp rcolchete igual exp semicolon ;
+		{statement} tk_lchave statement* tk_rchave |
+		{if} tk_if tk_lparen exp tk_rparen [left]:statement tk_else [right]:statement |
+		{while} tk_while tk_lparen exp tk_rparen statement |
+		{print} tk_print tk_lparen exp tk_rparen tk_semicolon |
+		{igual} tk_id tk_igual exp tk_semicolon |
+		{expigual} tk_id tk_lcolchete [left]:exp tk_rcolchete tk_igual [right]:exp tk_semicolon ;
 
 	exp =
-		{op} exp op exp | 
-		{exp} exp lcolchete exp rcolchete |
-		{length} exp ponto length |
-		{explist} exp ponto id lparen explist rparen |
-		{intliteral}integer_literal |
-		{true}true |
-		{false}false |
-		{id}id |
-		{this}this |
-		{newint}new int lcolchete exp rcolchete |
-		{newid}new id lparen rparen |
-		{exclamacao}exclamacao exp |
-		{entrepar}lparen exp rparen;
+		{op} [left]:exp tk_op [right]:exp |
+		{exp} [left]:exp tk_lcolchete [right]:exp tk_rcolchete |
+		{length} exp tk_ponto tk_length |
+		{explist} exp tk_ponto tk_id tk_lparen explist tk_rparen |
+		{intliteral}tk_integer_literal |
+		{true}tk_true |
+		{false}tk_false |
+		{id}tk_id |
+		{this}tk_this |
+		{newint}tk_new tk_int tk_lcolchete exp tk_rcolchete |
+		{newid}tk_new tk_id tk_lparen tk_rparen |
+		{exclamacao}tk_exclamacao exp |
+		{entrepar}tk_lparen exp tk_rparen;
 
 	explist =
 		{exprest}exp exprest*|
-		vazio;
+		tk_vazio;
 
 	exprest =
-		virgula exp;
-*/
+		tk_virgula exp;
+
