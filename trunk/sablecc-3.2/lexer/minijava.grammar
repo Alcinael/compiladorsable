@@ -49,7 +49,7 @@ Tokens
 	whitespace = (' ' | 10 | 13)+;
 	//comments = ('/''*' (upletters|letters|digit|'_')* '*''/') | ('/''/' (upletters|letters|digit|'_')* '\n');
   //comments = ('/''/' ([0...0xffff]-[10|13])* (10 13)) /*DUVIDAAAA*/
-	comments = '/''/'[[0 .. 0xffff] - [10 + 13]]* (10|13|10 13);
+	comments = ('/''/'[[0 .. 0xffff] - [10 + 13]]* (10|13|10 13)) | ('/''*'[0 .. 0xffff]* '*''/');
 
 Ignored Tokens
 	whitespace,
