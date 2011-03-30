@@ -69,17 +69,12 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAProgramProgram(AProgramProgram node)
+    public void caseAProgram(AProgram node)
     {
         defaultCase(node);
     }
 
-    public void caseAMainclassMainclass(AMainclassMainclass node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAClassdeclClassdecl(AClassdeclClassdecl node)
+    public void caseAMainclasse(AMainclasse node)
     {
         defaultCase(node);
     }
@@ -89,47 +84,17 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAVardeclVardecl(AVardeclVardecl node)
+    public void caseAExtendsClassdecl(AExtendsClassdecl node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAVardecl(AVardecl node)
     {
         defaultCase(node);
     }
 
     public void caseAMethoddecl(AMethoddecl node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAFormallistFormallist(AFormallistFormallist node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAFormallist(AFormallist node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAFormalrest(AFormalrest node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAIntfType(AIntfType node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseABooleanType(ABooleanType node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAIntType(AIntType node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAIdType(AIdType node)
     {
         defaultCase(node);
     }
@@ -164,122 +129,142 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAExpExp(AExpExp node)
+    public void caseAFormallist(AFormallist node)
     {
         defaultCase(node);
     }
 
-    public void caseATermExp(ATermExp node)
+    public void caseAVazioFormallist(AVazioFormallist node)
     {
         defaultCase(node);
     }
 
-    public void caseATimeTerm(ATimeTerm node)
+    public void caseAFormalrest(AFormalrest node)
     {
         defaultCase(node);
     }
 
-    public void caseAMedTerm(AMedTerm node)
+    public void caseAIntfType(AIntfType node)
     {
         defaultCase(node);
     }
 
-    public void caseAPlusMed(APlusMed node)
+    public void caseABooleanType(ABooleanType node)
     {
         defaultCase(node);
     }
 
-    public void caseAMinusMed(AMinusMed node)
+    public void caseAIntType(AIntType node)
     {
         defaultCase(node);
     }
 
-    public void caseALowMed(ALowMed node)
+    public void caseAIdType(AIdType node)
     {
         defaultCase(node);
     }
 
-    public void caseAAndLow(AAndLow node)
+    public void caseAExporgExp(AExporgExp node)
     {
         defaultCase(node);
     }
 
-    public void caseAMenorLow(AMenorLow node)
+    public void caseAAndExp(AAndExp node)
     {
         defaultCase(node);
     }
 
-    public void caseAExclamacaoLow(AExclamacaoLow node)
+    public void caseAMenorExp(AMenorExp node)
     {
         defaultCase(node);
     }
 
-    public void caseAFactorLow(AFactorLow node)
+    public void caseAPlusExp(APlusExp node)
     {
         defaultCase(node);
     }
 
-    public void caseALengthFactor(ALengthFactor node)
+    public void caseAMinusExp(AMinusExp node)
     {
         defaultCase(node);
     }
 
-    public void caseAExplistFactor(AExplistFactor node)
+    public void caseATimeExp(ATimeExp node)
     {
         defaultCase(node);
     }
 
-    public void caseANewintFactor(ANewintFactor node)
+    public void caseAExclamacaoExp(AExclamacaoExp node)
     {
         defaultCase(node);
     }
 
-    public void caseAEntreparFactor(AEntreparFactor node)
+    public void caseAIdExp(AIdExp node)
     {
         defaultCase(node);
     }
 
-    public void caseAIntliteralFactor(AIntliteralFactor node)
+    public void caseAThisExp(AThisExp node)
     {
         defaultCase(node);
     }
 
-    public void caseATrueFactor(ATrueFactor node)
+    public void caseATrueExp(ATrueExp node)
     {
         defaultCase(node);
     }
 
-    public void caseAFalseFactor(AFalseFactor node)
+    public void caseAFalseExp(AFalseExp node)
     {
         defaultCase(node);
     }
 
-    public void caseAIdFactor(AIdFactor node)
+    public void caseAIntliteralExp(AIntliteralExp node)
     {
         defaultCase(node);
     }
 
-    public void caseAThisFactor(AThisFactor node)
+    public void caseALengthExp(ALengthExp node)
     {
         defaultCase(node);
     }
 
-    public void caseANewidFactor(ANewidFactor node)
+    public void caseAEntreparExp(AEntreparExp node)
     {
         defaultCase(node);
     }
 
-    public void caseAExprestExplist(AExprestExplist node)
+    public void caseANewintExp(ANewintExp node)
     {
         defaultCase(node);
     }
 
-    public void caseAExplist(AExplist node)
+    public void caseAExplistExp(AExplistExp node)
     {
         defaultCase(node);
     }
 
-    public void caseAExprest(AExprest node)
+    public void caseANewidExp(ANewidExp node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseANovoExp(ANovoExp node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAExpexprestExplist(AExpexprestExplist node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAVaziodoisExplist(AVaziodoisExplist node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAExprestExprest(AExprestExprest node)
     {
         defaultCase(node);
     }

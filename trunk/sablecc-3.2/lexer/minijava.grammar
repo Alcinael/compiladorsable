@@ -50,7 +50,6 @@ Tokens
 	tk_tok_integerlit = digit+;
 	tk_real = ((digit)+ '.' (digit)*) | ((digit)* '.' (digit)+);
 	tk_whitespace = (' ' | 9 | 10 | 13)+;
-  //comments = ('/''/' ([0...0xffff]-[10|13])* (10 13))
 	tk_comments = ('/''/'[[0 .. 0xffff] - [10 + 13]]* (10|13|10 13)) | ('/''*'[0 .. 0xffff]* '*''/');
 
 Ignored Tokens
@@ -137,15 +136,20 @@ Abstract Syntax Tree
 
 	program = 
 		mainclasse classdecl;
+
 	mainclasse = 
 		statement;
+
 	classdecl = 
 		vardecl methoddecl |
 		{extends} vardecl methoddecl;
+
 	vardecl =
 		type ;
+
 	methoddecl = 
 		type formallist vardecl statement exp;
+
 	statement =
 		{statement} statement |
 		{if} exp [true]:statement [false]:statement |
@@ -153,10 +157,13 @@ Abstract Syntax Tree
 		{print} exp |
 		{igual}  exp |
 		{expigual} [left]:exp [right]:exp;
+
 	formallist = 
 		type formalrest | {vazio};
+
 	formalrest =
 		type ;
+
 	type =
 		{intf} |
 		{boolean} |
