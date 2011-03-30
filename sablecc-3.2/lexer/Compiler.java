@@ -14,10 +14,11 @@ public class Compiler{
 		(new InputStreamReader(System.in), 1024));
 		
 	    Token t = l.next();
-	    while (!t.getText().equals("")){ 
+	 /*   while (!t.getText().equals("")){ 
 		System.out.print(t.toString());
 		t = l.next(); 
-	    }
+	    }*/
+		s.apply(new PrettyPrint);
 	}
 	catch(Exception e){
 	    System.out.println(e.getMessage());
