@@ -164,87 +164,107 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAIntliteralExp(AIntliteralExp node)
+    public void caseAExpExp(AExpExp node)
     {
         defaultCase(node);
     }
 
-    public void caseATrueExp(ATrueExp node)
+    public void caseATermExp(ATermExp node)
     {
         defaultCase(node);
     }
 
-    public void caseAFalseExp(AFalseExp node)
+    public void caseATimeTerm(ATimeTerm node)
     {
         defaultCase(node);
     }
 
-    public void caseAIdExp(AIdExp node)
+    public void caseAMedTerm(AMedTerm node)
     {
         defaultCase(node);
     }
 
-    public void caseAThisExp(AThisExp node)
+    public void caseAPlusMed(APlusMed node)
     {
         defaultCase(node);
     }
 
-    public void caseANewintExp(ANewintExp node)
+    public void caseAMinusMed(AMinusMed node)
     {
         defaultCase(node);
     }
 
-    public void caseANewidExp(ANewidExp node)
+    public void caseALowMed(ALowMed node)
     {
         defaultCase(node);
     }
 
-    public void caseAExclamacaoExp(AExclamacaoExp node)
+    public void caseAAndLow(AAndLow node)
     {
         defaultCase(node);
     }
 
-    public void caseAEntreparExp(AEntreparExp node)
+    public void caseAMenorLow(AMenorLow node)
     {
         defaultCase(node);
     }
 
-    public void caseAPreceUlexp(APreceUlexp node)
+    public void caseAExclamacaoLow(AExclamacaoLow node)
     {
         defaultCase(node);
     }
 
-    public void caseAP1Realexp(AP1Realexp node)
+    public void caseAFactorLow(AFactorLow node)
     {
         defaultCase(node);
     }
 
-    public void caseAP2Addexp(AP2Addexp node)
+    public void caseALengthFactor(ALengthFactor node)
     {
         defaultCase(node);
     }
 
-    public void caseAAddexp(AAddexp node)
+    public void caseAExplistFactor(AExplistFactor node)
     {
         defaultCase(node);
     }
 
-    public void caseAP3Mulexp(AP3Mulexp node)
+    public void caseANewintFactor(ANewintFactor node)
     {
         defaultCase(node);
     }
 
-    public void caseAP4Notexp(AP4Notexp node)
+    public void caseAEntreparFactor(AEntreparFactor node)
     {
         defaultCase(node);
     }
 
-    public void caseAP5Notexp(AP5Notexp node)
+    public void caseAIntliteralFactor(AIntliteralFactor node)
     {
         defaultCase(node);
     }
 
-    public void caseAP6Notexp(AP6Notexp node)
+    public void caseATrueFactor(ATrueFactor node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAFalseFactor(AFalseFactor node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAIdFactor(AIdFactor node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAThisFactor(AThisFactor node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseANewidFactor(ANewidFactor node)
     {
         defaultCase(node);
     }

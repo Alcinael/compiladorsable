@@ -59,7 +59,7 @@ Ignored Tokens
 
 
 Productions
-	program = {program} mainclass classdecl*;
+	program{} = {program} mainclass classdecl*;
 
 	mainclass  = {mainclass} tk_class [left]:tk_id [left2]:tk_lchave tk_public tk_static tk_void tk_main tk_lparen tk_string tk_lcolchete tk_rcolchete [right]:tk_id tk_rparen [right2]:tk_lchave statement [left3]:tk_rchave [right3]:tk_rchave;
 
@@ -93,37 +93,50 @@ Productions
 		{igual} tk_id tk_igual exp tk_semicolon |
 		{expigual} tk_id tk_lcolchete [left]:exp tk_rcolchete tk_igual [right]:exp tk_semicolon ;
 
-	exp = 
-		{intliteral}tk_integer_literal |
-		{true}tk_true |
-		{false}tk_false |
-		{id}tk_id |
-		{this}tk_this |
-		{newint}tk_new tk_int tk_lcolchete exp tk_rcolchete |
-		{newid}tk_new tk_id tk_lparen tk_rparen |
-		{exclamacao}tk_exclamacao exp |
-		{entrepar}tk_lparen exp tk_rparen|
-	
+	exp {-> exp} = {exp} [left]:exp tk_lcolchete [right]:term tk_rcolchete {->
+							 | {term}term;
+       
+			term {-> exp} = {and} [left]:term tk_and [right]:med {-> New exp.and(left.exp, right.exp)}
+               			| {menor} [left]:term tk_menor [right]:med  {-> New exp.menor(left.exp, right.exp)}
+               			| {med}med;
+      med {-> exp} = {plus} [left]:med tk_plus [right]:low {-> New exp.plus(left.exp, right.exp)}
+               		 | {minus} [left]:med tk_minus [right]:low {-> New exp.minus(left.exp, right.exp)}
+               		 | {low}low;
+      low {-> exp} = {exclamacao}tk_exclamacao factor /*{-> New exp.time(left.exp, right.exp)} DUVIDAAA*/
+               		 | {time} low tk_time factor {-> New exp.time(left.exp, right.exp)}
+               		 | {factor}factor;
+
+      factor {->exp} = {length} factor tk_ponto tk_length
+               			 | {explist} factor tk_ponto tk_id tk_lparen explist tk_rparen
+               			 | {newint}tk_new tk_int tk_lcolchete factor tk_rcolchete
+               			 | {entrepar}tk_lparen factor tk_rparen
+               			 | {intliteral}tk_integer_literal
+               			 | {true}tk_true
+               			 | {false}tk_false
+               			 | {id}tk_id
+               			 | {this}tk_this
+               			 | {newid}tk_new tk_id tk_lparen tk_rparen;
 
 
-	ulexp = {prece} [left]:realexp tk_and [right]:realexp;
-
-	realexp = {p1}[left]:addexp tk_menor [right]:addexp;
-
-	addexp = {p2}[left]:mulexp tk_plus [right]:mulexp |
-					 {p22}[left]:mulexp tk_minus [right]:mulexp;
-
-	mulexp = {p3}[left]:notexp tk_time [right]:notexp;
-
-	notexp = {p4}[left]:exp tk_lcolchete [right]:exp tk_rcolchete|
-					 {p44}exp tk_ponto tk_length |
-					 {p444}exp tk_ponto tk_id tk_lparen explist tk_rparen;
-
-
-	explist =
-		{exprest}exp exprest*|
+	explist {-> explist} =
+		exp exprest* {-> New explist([exp.exp, exprest.exp])} |
 		tk_vazio;
 
-	exprest =
-		tk_virgula exp;
+	exprest {-> exp} =
+		tk_virgula exp {-> exp.exp};
+
+
+Abstract Syntax Tree
+
+        explist = 
+            exp*;
+
+        exp =
+						{and} [left]:exp [right]:exp |
+						{menor} [left]:exp [right]:exp |
+            {plus}  [left]:exp [right]:exp |
+						{minus} [left]:exp [right]:exp |
+            {time}  [left]:exp [right]:exp |
+            {constant} integer;
+
 
