@@ -58,39 +58,40 @@ Ignored Tokens
 
 
 Productions
-	program{->program} = {program} mainclasse classdecl {-> New program (mainclasse, classdecl)};
+	program{->program} = {program} mainclasse classdecl* {-> New program (mainclasse, [classdecl])};
 
-	mainclasse{-> mainclasse}  = {mainclasse} tk_class [left]:tk_id [left2]:tk_lchave tk_public tk_static tk_void tk_main tk_lparen tk_string tk_lcolchete tk_rcolchete [right]:tk_id tk_rparen [right2]:tk_lchave statement [left3]:tk_rchave [right3]:tk_rchave{-> New mainclasse(statement)};
+	mainclasse{-> mainclasse}  = {mainclasse} tk_class [left]:tk_id [left2]:tk_lchave tk_public tk_static tk_void tk_main tk_lparen tk_string tk_lcolchete tk_rcolchete [right]:tk_id tk_rparen [right2]:tk_lchave statement [left3]:tk_rchave [right3]:tk_rchave{-> New mainclasse(left, right, statement)};
 
 	classdecl{-> classdecl} =
-		{classdecl} tk_class tk_id tk_lchave vardecl methoddecl tk_rchave {-> New classdecl(vardecl, methoddecl)} |
-		{extends}tk_class [left]:tk_id tk_extends [right]:tk_id tk_lchave vardecl methoddecl tk_rchave {->New classdecl.extends(vardecl, methoddecl)};
+		{classdecl} tk_class tk_id tk_lchave vardecl* methoddecl* tk_rchave {-> New classdecl.classdecl(tk_id, [vardecl], [methoddecl])} |
+		{extends}tk_class [left]:tk_id tk_extends [right]:tk_id tk_lchave vardecl* methoddecl* tk_rchave {->New classdecl.extends(left, right, [vardecl], [methoddecl])};
 
 	vardecl{-> vardecl} =
-		{vardecl} type {-> New vardecl(type)};
+		{vardecl} type tk_id {-> New vardecl.vardecl(type, tk_id)};
 
 	methoddecl{-> methoddecl} =
-		tk_public type tk_id tk_lparen formallist tk_rparen tk_lchave vardecl statement tk_return exp tk_semicolon tk_rchave {-> New methoddecl(type, formallist, vardecl, statement, exp)};
+		{methoddecl} tk_public type tk_id tk_lparen formallist tk_rparen tk_lchave vardecl* statement* tk_return exp tk_semicolon tk_rchave {-> New methoddecl.methoddecl(type, tk_id, formallist, [vardecl], [statement], exp)};
 
-	formallist{-> formallist} ={formallist} type tk_id formalrest {-> New formallist(type, formalrest)}|
-		{vazio}tk_vazio {->New formallist.vazio()};
+	formallist{-> formallist} =
+		type tk_id formalrest* {-> New formallist(type, [formalrest])}|
+		{vazio}tk_vazio {->New formallist.vazio(tk_vazio)};
 
 	formalrest {-> formalrest} =
-		{formalrest}tk_virgula type tk_id {->New formalrest(type)} ;
+		{formalrest}tk_virgula type tk_id {->New formalrest.formalrest(type, tk_id)} ;
 
 	type{-> type} =
-		{intf} tk_intf {->New type.intf()}|
-		{boolean} tk_boolean {->New type.boolean()} |
-		{int} tk_int {-> New type.int()}|
-		{id} tk_id {->New type.id()};
+		{intf} tk_intf {->New type.intf(tk_intf)}|
+		{boolean} tk_boolean {->New type.boolean(tk_boolean)} |
+		{int} tk_int {-> New type.int(tk_int)}|
+		{id} tk_id {->New type.id(tk_id)};
 
 	statement{-> statement} =
-		{statement} tk_lchave statement tk_rchave {->New statement.statement(statement)}|
+		{statement} tk_lchave statement* tk_rchave {->New statement.statement([statement])}|
 		{if} tk_if tk_lparen exp tk_rparen [left]:statement tk_else [right]:statement {-> New statement.if(exp, left.statement, right.statement)} |
 		{while} tk_while tk_lparen exp tk_rparen statement {-> New statement.while(exp, statement)}|
 		{print} tk_print tk_lparen exp tk_rparen tk_semicolon {-> New statement.print(exp)}|
-		{igual} tk_id tk_igual exp tk_semicolon {->New statement.igual(exp)}|
-		{expigual} tk_id tk_lcolchete [left]:exp tk_rcolchete tk_igual [right]:exp tk_semicolon {-> New statement.expigual(left.exp, right.exp)} ;
+		{igual} tk_id tk_igual exp tk_semicolon {->New statement.igual(tk_id, exp)}|
+		{expigual} tk_id tk_lcolchete [left]:exp tk_rcolchete tk_igual [right]:exp tk_semicolon {-> New statement.expigual(tk_id, left.exp, right.exp)} ;
 
 	exp {-> exp} = 
 		{exporg} [left]:exp tk_lcolchete [right]:term tk_rcolchete {-> New exp.exporg(left.exp, right.exp)}|
@@ -107,8 +108,8 @@ Productions
 		{low}low {->low.exp};
 
 	low {-> exp} = 
-		{exclamacao}tk_exclamacao factor  {-> New exp.exclamacao()} |
- 		{time} [left]:	low tk_time [right]:factor {-> New exp.time(left.exp, right.exp)} |
+		{exclamacao}tk_exclamacao [not]:factor {-> New exp.exclamacao(not.exp)} |
+ 		{time} [left]:low tk_time [right]:factor {-> New exp.time(left.exp, right.exp)} |
 		{factor}factor {-> factor.exp};
 
 	factor {->exp} = 
@@ -116,17 +117,17 @@ Productions
 		{novo} [only]:factor tk_ponto tk_id tk_lparen explist tk_rparen {-> New exp.novo(only.exp,explist)}|
 		{newint}tk_new tk_int tk_lcolchete [only]:factor tk_rcolchete {-> New exp.newint(only.exp)}|
 		{entrepar}tk_lparen [only]:factor tk_rparen {-> New exp.entrepar(only.exp)}|
-		{intliteral}tk_integer_literal {-> New exp.intliteral()}|
-		{true}tk_true {-> New exp.true()}|
-		{false}tk_false {->New exp.false()}|
-		{id}tk_id {->New exp.id()}|
-		{this}tk_this {->New exp.this()}|
-		{newid}tk_new tk_id tk_lparen tk_rparen {->New exp.newid()};
+		{intliteral}tk_integer_literal {-> New exp.intliteral(tk_integer_literal)}|
+		{true}tk_true {-> New exp.true(tk_true)}|
+		{false}tk_false {->New exp.false(tk_false)}|
+		{id}tk_id {->New exp.id(tk_id)}|
+		{this}tk_this {->New exp.this(tk_this)}|
+		{newid}tk_new tk_id tk_lparen tk_rparen {->New exp.newid(tk_id)};
 
 
 	explist {->explist} =
-		{expexprest}exp exprest {-> New explist.expexprest(exp, exprest)} |
-		{vaziodois}tk_vazio {-> New explist.vaziodois()};
+		{expexprest}exp exprest* {-> New explist.expexprest(exp, [exprest])} |
+		{vaziodois}tk_vazio {-> New explist.vaziodois(tk_vazio)};
 
 	exprest {->exprest} =
 		tk_virgula exp {-> New exprest.exprest(exp)};
@@ -135,63 +136,64 @@ Productions
 Abstract Syntax Tree
 
 	program = 
-		mainclasse classdecl;
+		mainclasse classdecl*;
 
 	mainclasse = 
-		statement;
+		[left]:tk_id [right]:tk_id statement;
 
 	classdecl = 
-		vardecl methoddecl |
-		{extends} vardecl methoddecl;
+		{classdecl} tk_id vardecl* methoddecl* |
+		{extends} [left]:tk_id [right]:tk_id vardecl* methoddecl*;
 
 	vardecl =
-		type ;
+		{vardecl} type tk_id;
 
 	methoddecl = 
-		type formallist vardecl statement exp;
+		{methoddecl} type tk_id formallist vardecl* statement* exp;
 
 	statement =
-		{statement} statement |
+		{statement} statement* |
 		{if} exp [true]:statement [false]:statement |
 		{while} exp statement |
 		{print} exp |
-		{igual}  exp |
-		{expigual} [left]:exp [right]:exp;
+		{igual}  tk_id exp |
+		{expigual} tk_id [left]:exp [right]:exp;
 
 	formallist = 
-		type formalrest | {vazio};
+		type formalrest* |
+	  	{vazio} tk_vazio;
 
 	formalrest =
-		type ;
+		{formalrest} type tk_id;
 
 	type =
-		{intf} |
-		{boolean} |
-		{int} |
-		{id} ;
-        exp =	
+		{intf} tk_intf |
+		{boolean} tk_boolean |
+		{int} tk_int |
+		{id} tk_id ;
+	exp =	
 		{exporg} [left]:exp [right]:exp|
 		{and} [left]:exp [right]:exp |
 		{menor} [left]:exp [right]:exp |
 		{plus}  [left]:exp [right]:exp |
 		{minus} [left]:exp [right]:exp |
 		{time}  [left]:exp [right]:exp |
-		{exclamacao}  |
-		{id}  |
-		{this} |
-		{true}  |
-		{false} |
-		{intliteral} |
+		{exclamacao} exp |
+		{id}  tk_id |
+		{this} tk_this |
+		{true}  tk_true |
+		{false} tk_false |
+		{intliteral} tk_integer_literal|
 		{length} exp |
 		{entrepar} exp |
 		{newint} exp |
 		{explist} exp  explist |
-		{newid} |
+		{newid} tk_id|
 		{novo} exp explist;
 
 	explist = 
-		{expexprest} exp exprest|
-		{vaziodois} ;
+		{expexprest} exp exprest*|
+		{vaziodois} tk_vazio ;
 
 	exprest =
 		{exprest} exp;

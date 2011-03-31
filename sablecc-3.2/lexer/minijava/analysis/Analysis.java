@@ -14,10 +14,10 @@ public interface Analysis extends Switch
     void caseStart(Start node);
     void caseAProgram(AProgram node);
     void caseAMainclasse(AMainclasse node);
-    void caseAClassdecl(AClassdecl node);
+    void caseAClassdeclClassdecl(AClassdeclClassdecl node);
     void caseAExtendsClassdecl(AExtendsClassdecl node);
-    void caseAVardecl(AVardecl node);
-    void caseAMethoddecl(AMethoddecl node);
+    void caseAVardeclVardecl(AVardeclVardecl node);
+    void caseAMethoddeclMethoddecl(AMethoddeclMethoddecl node);
     void caseAStatementStatement(AStatementStatement node);
     void caseAIfStatement(AIfStatement node);
     void caseAWhileStatement(AWhileStatement node);
@@ -26,7 +26,7 @@ public interface Analysis extends Switch
     void caseAExpigualStatement(AExpigualStatement node);
     void caseAFormallist(AFormallist node);
     void caseAVazioFormallist(AVazioFormallist node);
-    void caseAFormalrest(AFormalrest node);
+    void caseAFormalrestFormalrest(AFormalrestFormalrest node);
     void caseAIntfType(AIntfType node);
     void caseABooleanType(ABooleanType node);
     void caseAIntType(AIntType node);

@@ -79,7 +79,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAClassdecl(AClassdecl node)
+    public void caseAClassdeclClassdecl(AClassdeclClassdecl node)
     {
         defaultCase(node);
     }
@@ -89,12 +89,12 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAVardecl(AVardecl node)
+    public void caseAVardeclVardecl(AVardeclVardecl node)
     {
         defaultCase(node);
     }
 
-    public void caseAMethoddecl(AMethoddecl node)
+    public void caseAMethoddeclMethoddecl(AMethoddeclMethoddecl node)
     {
         defaultCase(node);
     }
@@ -139,7 +139,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAFormalrest(AFormalrest node)
+    public void caseAFormalrestFormalrest(AFormalrestFormalrest node)
     {
         defaultCase(node);
     }
